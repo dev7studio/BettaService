@@ -33,6 +33,7 @@ app.get('/events/nearest', function (req, resp) {
         });
 });
 
-app.listen(3000, function () {
-  console.log('Escuchando en el puerto 3000');
+var serverPort = process.env.SERVER_PORT;
+app.listen(serverPort, function () {
+  console.log('Escuchando en el puerto ' + serverPort);
 });

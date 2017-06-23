@@ -1,24 +1,10 @@
-var mysql = require('mysql');
+var connectDB = require('./connectdb').connectDB;
 
 function Events() {}
 
-function _connect() {
-
-    var conexion = mysql.createConnection({
-        host: '192.168.1.50',
-        user: 'root',
-        password: 'root',
-        database: 'uparty'
-    });
-
-    conexion.connect();
-
-    return conexion;
-}
-
 function _findAll(resolve, reject) {
 
-    var conexion = _connect();
+    var conexion = connectDB();
 
     conexion.query(
         'SELECT * FROM event',
@@ -33,7 +19,7 @@ function _findAll(resolve, reject) {
 
 function _findNearest(latitude, longitude, resolve, reject) {
 
-    var conexion = _connect();
+    var conexion = connectDB();
 
     conexion.query(
         'SELECT * FROM event WHERE SQRT(POWER(lat_event - ?, 2) + POWER(long_event - ?, 2)) < 0.1',
